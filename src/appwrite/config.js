@@ -11,7 +11,7 @@ constructor(){
     this.databases=new Databases(this.client);
     this.bucket=new Storage(this.client)
 }
-async createPost({title,slug,featuredImage,status,userId}){
+async createPost({title,content,slug,featuredImage,status,userId}){
 try {
     return await this.databases.createDocument(
         conf.appwriteDatabaseId,

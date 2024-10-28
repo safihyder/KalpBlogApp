@@ -21,7 +21,7 @@ const PostForm = ({post}) => {
         if(post){
             const file=data.image[0] ? await AppwriteServices.uploadFile(data.image[0]): null
             if(file){
-                AppwriteService.deleteFile(post.featuredImage)
+                AppwriteServices.deleteFile(post.featuredImage)
             }
             const dbPost =await AppwriteServices.updatePost(post.$id,{
                 ...data,
@@ -43,15 +43,16 @@ const PostForm = ({post}) => {
         }
     }
     const slugTransform=useCallback((value)=>{
-        if(value && typeof value ==="string"){
+        if(value && typeof value === "string")
+            console.log(value)
             return value
-                .trim
+                .trim()
                 .toLowerCase()
                 .replace(/[^a-zA-Z\d\s]+/g, "-")
                 .replace(/\s/g, "-");
         
         return ""
-            }
+            
     },[])
     React.useEffect(() => {
         const subscription=watch((value,{name})=>{
@@ -94,7 +95,7 @@ const PostForm = ({post}) => {
         {post && (
             <div className="w-full mb-4">
                 <img
-                    src={AppwriteService.getFilePreview(post.featuredImage)}
+                    src={AppwriteServices.getFilePreview(post.featuredImage)}
                     alt={post.title}
                     className="rounded-lg"
                 />

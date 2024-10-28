@@ -9,12 +9,13 @@ export class AuthService{
             .setProject(conf.appwriteProjectId)
         this.account=new Account(this.client)
     }
-    async createAccount({email,password,name}){
+    async createAccount(name,email,password){
+        console.log(email,password)
         try {
             const userAccount=await this.account.create(ID.unique(),email,password,name);
             if(userAccount){
                 //call another method
-                return this.login({email,password})
+                return this.login(email,password)
             }else{
                 return userAccount;
             }
@@ -37,8 +38,10 @@ export class AuthService{
         return null
     }
     async logout(){
+        console.log(this.account)
         try {
-            await this.account.deleteSession();
+            await this.account.deleteSession("current");
+            console.log("Logout user successfully")
         } catch (error) {
             console.log("Appwrite serive :: logout :: error", error);
         }

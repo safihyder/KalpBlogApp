@@ -14,13 +14,15 @@ const Login = () => {
    const login=async (data)=>{
     setError("");
     try {
-      const session=await AuthService.login(data)
+      const session=await AuthService.login(data.email,data.password)
       if(session){
+        console.log(session)
         const userData=await AuthService.getCurrentUser()
         if(userData) dispatch(storeLogin(userData))
           navigate('/')
       }
     } catch (error) {
+      console.log(error)
       setError(error.message)
     }
   }
