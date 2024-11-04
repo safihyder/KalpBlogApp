@@ -8,7 +8,7 @@ className="",
 },ref)=> {
   const id = useId()
   return (
-    <div className='w-full'>
+    <div className='w-full flex flex-col items-start gap-1'>
     {label && <label 
     className='inline-block mb-1 pl-1' 
     htmlFor={id}>

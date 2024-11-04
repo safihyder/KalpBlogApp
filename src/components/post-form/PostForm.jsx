@@ -15,6 +15,7 @@ const PostForm = ({post}) => {
             status:post?.status || "active",
         }
     })
+    console.log(getValues("slug"))
     const navigate=useNavigate()
     const userData=useSelector(state=>state.auth.userData)
     const submit=async (data)=>{
@@ -49,7 +50,7 @@ const PostForm = ({post}) => {
                 .trim()
                 .toLowerCase()
                 .replace(/[^a-zA-Z\d\s]+/g, "-")
-                .replace(/\s/g, "-");
+                .replace(/\s/g, "-")
         
         return ""
             
@@ -62,7 +63,6 @@ const PostForm = ({post}) => {
         });
         return () => subscription.unsubscribe();
     }, [watch,slugTransform,setValue])
-    
   
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
@@ -76,12 +76,14 @@ const PostForm = ({post}) => {
         <Input
             label="Slug :"
             placeholder="Slug"
+            maxlength="35"
             className="mb-4"
             {...register("slug", { required: true })}
             onInput={(e) => {
                 setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
             }}
-        />
+            />
+            {post && setValue("slug", post.$id, { shouldValidate: true })}
         <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />
     </div>
     <div className="w-1/3 px-2">

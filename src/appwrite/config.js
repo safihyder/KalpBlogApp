@@ -73,7 +73,6 @@ async getPost(slug){
 }
 async getPosts(queries=[Query.equal("status","active")]){
 try {
-    console.log(conf.appwriteCollectionId)
      return await this.databases.listDocuments(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
